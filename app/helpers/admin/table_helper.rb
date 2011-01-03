@@ -56,6 +56,7 @@ module Admin
         when :selector then table_selector(key, item)
         when :transversal then table_transversal(key, item)
         when :has_and_belongs_to_many then table_has_and_belongs_to_many_field(key, item)
+        when :partial then table_partial(key, item)
         else
           table_string_field(key, item, link_options)
         end
@@ -216,6 +217,9 @@ module Admin
       item.send(_attribute).send(virtual)
     end
 
+    def table_partial(attribute, item)
+      render :partial => "admin/templates/#{attribute}", :locals => {:item => item}
+    end
   end
 
 end
